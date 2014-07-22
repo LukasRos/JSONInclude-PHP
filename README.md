@@ -25,8 +25,24 @@ Loading the first file with a JSONInclude parser would return the following outp
      }
     }
 
+The include symbol can also be changed in case a leading "@" is used for a different purpose.
+
 ## What is JSONInclude-PHP?
 A simple parser for JSONInclude as a reference implementation written in PHP.
+
+## How can I use it?
+
+1. Add `"lukasros/json-include": "dev-master` to the composer.json file for your project.
+2. Install/update dependencies with composer.
+3. Initialize an instance in your code:
+
+    $jsonInclude = new JSONInclude();
+
+4. Load and parse a JSON file:
+
+    $parsedJson = $jsonInclude->parseFileWithIncludes('filename.json');
+
+Please check the `demo` folder for an example.
 
 ## Who's behind it?
 JSONInclude-PHP was created by Lukas Rosenstock. Contact me through my website at [lukasrosenstock.net](http://lukasrosenstock.net/).

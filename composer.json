@@ -1,0 +1,17 @@
+{
+	"name": "lukasros/json-include",
+	"type": "library",
+	"keywords": ["json"],
+	"description": "Combine JSON data from multiple files.",
+	"homepage": "https://github.com/LukasRos/JSONInclude-PHP",
+	"license": "MPL",
+	"authors": [{ "name": "Lukas Rosenstock" }],
+	"require": {
+		"php": ">=5.3.0"
+	},
+	"autoload": {
+		"psr-0": {
+			"LukasRos\\JSONInclude": "src"
+		}
+	}
+}

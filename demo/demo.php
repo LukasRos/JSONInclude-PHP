@@ -1,9 +1,11 @@
 <?php
 
-include "../src/LukasRos/JSONInclude/JSONInclude.php";
+require_once "../vendor/autoload.php";
 
-$jsonInclude = new \LukasRos\JSONInclude\JSONInclude(array('silent' => false));
+use LukasRos\JSONInclude\JSONInclude;
 
-$parsedJson = $jsonInclude->parseFileWithIncludes('file1.txt');
+$jsonInclude = new JSONInclude(array('silent' => false));
+
+$parsedJson = $jsonInclude->parseFileWithIncludes('file1.json');
 
 print_r($parsedJson);

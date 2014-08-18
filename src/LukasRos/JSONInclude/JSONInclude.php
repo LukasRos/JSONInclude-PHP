@@ -10,7 +10,8 @@ class JSONInclude {
 		$this->options = array_merge(array(
 			'include_symbol' => '@',
 			'base_dir' => '',
-			'silent' => true	
+			'silent' => true,
+			'accept_comments' => true	
 		), $options);
 	}
 	
@@ -51,7 +52,12 @@ class JSONInclude {
 		}
 		$fileChain[] = $filename;
 		
-		return $this->parseDataWithIncludes(json_decode(file_get_contents($filename), true), $baseDir, $fileChain);
+		$jsonString = file_get_contents($filename);
+		if ($this->options['accept_comments']) {
+			// Parse comments - code taken from http://php.net/manual/de/function.json-decode.php#111551
+			$jsonString = preg_replace("#(/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/)|([\s\t](//).*)#", '', $jsonString); 
+		}
+		return $this->parseDataWithIncludes(json_decode($jsonString, true), $baseDir, $fileChain);
 	}
 	
 }

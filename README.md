@@ -32,9 +32,9 @@ A simple parser for JSONInclude as a reference implementation written in PHP.
 
 ## How can I use it?
 
-1. Add `"lukasros/json-include": "dev-master` to the composer.json file for your project.
+1. Add `"lukasros/json-include": "dev-master"` to the composer.json file for your project.
 2. Install/update dependencies with composer.
-3. Initialize an instance in your code: `$jsonInclude = new JSONInclude();`
+3. Initialize an instance in your code: `$jsonInclude = new LukasRos\JSONInclude\JSONInclude();`
 4. Load and parse a JSON file: `$parsedJson = $jsonInclude->parseFileWithIncludes('filename.json');`
 
 Please check the `demo` folder for an example.

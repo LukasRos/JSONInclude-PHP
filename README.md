@@ -28,7 +28,7 @@ Loading the first file with a JSONInclude parser would return the following outp
 The include symbol can also be changed in case a leading "@" is used for a different purpose.
 
 ## What is JSONInclude-PHP?
-A simple parser for JSONInclude as a reference implementation written in PHP.
+A simple parser for JSONInclude as a reference implementation written in PHP. It also supports parsing JSON files with comments and generic preprocessing of JSON data.
 
 ## How can I use it?
 

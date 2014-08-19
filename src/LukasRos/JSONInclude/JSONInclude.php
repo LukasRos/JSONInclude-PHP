@@ -5,6 +5,7 @@ namespace LukasRos\JSONInclude;
 class JSONInclude {
 	
 	private $options;
+	private $processors = array();
 	
 	public function __construct($options = array()) {
 		$this->options = array_merge(array(
@@ -15,6 +16,18 @@ class JSONInclude {
 		), $options);
 	}
 	
+	/**
+	 * Adds a custom JSON pre-processor.
+	 * @param $regExp A regular expression that a JSON string should match in order to be handled with this processor.
+	 * @param $callback A function containing the implementation of the processor.
+	 */
+	public function addCustomPreProcessor($regExp, $callback) {
+		$this->processors[$regExp] = $callback;
+	}
+	
+	/**
+	 * Parses includes in an array representing JSON data.
+	 */
 	public function parseDataWithIncludes($data, $baseDir = null, $fileChain = array()) {
 		if (!$baseDir) $baseDir = $this->options['base_dir'];
 		
@@ -25,15 +38,26 @@ class JSONInclude {
 				$output[$key] = $this->parseDataWithIncludes($value, $baseDir, $fileChain);
 			}
 			return $output;
-		} elseif (is_string($data) && strlen($data)>0 && $data[0]==$this->options['include_symbol']) {
-			// Include file
-			return $this->parseFileWithIncludes(substr($data, 1), $baseDir, $fileChain);
+		} elseif (is_string($data)) {
+			// Process string with custom JSON preprocessors
+			foreach ($this->processors as $regExp => $callback) {
+				if (preg_match($regExp, $data)===1) $data = $callback($data);
+			}
+			
+			if (strlen($data)>0 && $data[0]==$this->options['include_symbol'])
+				// Include file
+				return $this->parseFileWithIncludes(substr($data, 1), $baseDir, $fileChain);
+			else
+				return $data;
 		} else {
 			// Return data
 			return $data;
 		}
 	}
 	
+	/**
+	 * Parses includes in a file containing JSON data.
+	 */
 	public function parseFileWithIncludes($filename, $baseDir = null, $fileChain = array()) {
 		if (!$baseDir) $baseDir = $this->options['base_dir'];
 		
